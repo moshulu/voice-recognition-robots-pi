@@ -1,3 +1,18 @@
+// main.cpp
+// Written by:
+// Lulu Xu,Jiani Zhou,Xiaotian Zhu,Jiarui Tian
+// Adapted for Raspberry Pi 3 on Raspbian Stretch: Matthew Drew
+// Last updated: 2018.8.16 by Matthew Drew, Jiani Zhou, Lulu Xu
+// Under guidance by Dr. Jiacun Wang, Monmouth University
+// Description: Uses voice recognition libraries to connect to ROSAria robots. All commands must be prefaced by a name.
+// In the most recent version (0.0.4), the robot's name is 'Mary'.
+// Commands
+// 'Forward'
+// 'Backward'
+// 'Left'
+// 'Right'
+// 'Stop'
+
 #include <iostream>
 #include <stdio.h>
 #include <string.h>
@@ -5,7 +20,6 @@
 #include <sys/time.h>
 #include <sphinxbase/err.h>
 #include <sphinxbase/ad.h>
-//#include <cont_ad.h>
 #include <sphinxbase/cmd_ln.h>
 #include <pocketsphinx/pocketsphinx.h>
 #include <pthread.h>
@@ -119,7 +133,6 @@ static void *Robot(void *dummy)
 
     while (1)
     {
-        //input = getchar();
         if(myQue.size() == 2)
         {
             cout<<"=========="<<"name"<<"=========="<<endl;
@@ -209,207 +222,6 @@ static void *Robot(void *dummy)
                 precommand = myQue.front();
                 myQue.pop();
             }
-            // else if(name=="piggy")
-            // {
-            //    robot2.lock();
-            //    robot2.clearDirectMotion();
-            //    robot2.enableMotors();
-            //    robot2.unlock();
-            //     myQue.pop();
-            //     command = myQue.front();
-            //     //cout<<myQue.front()<<endl;
-            //     if(command=="forward")
-            //     {
-            //        robot2.setRotVel(0);
-            //        robot2.setVel(100);
-            //         ArUtil::sleep(5000);
-            //        robot2.setVel(0);
-            //     }
-            //     else if(command=="backward")
-            //     {
-            //        robot2.setRotVel(0);
-            //        robot2.setVel(-100);
-            //         ArUtil::sleep(5000);
-            //        robot2.setVel(0);
-            //     }
-            //     else if(command=="left")
-            //     {
-            //        robot2.setRotVel(30);
-            //        robot2.setVel(0);
-            //         ArUtil::sleep(3000);
-            //        robot2.setRotVel(0);
-            //        robot2.setVel(100);
-            //         ArUtil::sleep(5000);
-            //        robot2.setVel(0);
-            //     }
-            //     else if(command=="right")
-            //     {
-            //        robot2.setRotVel(-30);
-            //        robot2.setVel(0);
-            //         ArUtil::sleep(3000);
-            //        robot2.setRotVel(0);
-            //        robot2.setVel(100);
-            //         ArUtil::sleep(5000);
-            //        robot2.setVel(0);
-            //     }
-            //     else if(command== "faster")
-            //     {
-            //         if(precommand == "forward"||precommand == "left"||precommand == "right")
-            //         {
-            //            robot2.setRotVel(0);
-            //            robot2.setVel(200);
-            //             ArUtil::sleep(5000);
-            //            robot2.setVel(0);
-            //         }else if(precommand == "backward")
-            //         {
-            //            robot2.setRotVel(0);
-            //            robot2.setVel(-200);
-            //             ArUtil::sleep(5000);
-            //            robot2.setVel(0);
-            //         }
-            //     }
-            //     else if(command == "slower")
-            //     {
-            //         if(precommand == "forward"||precommand == "left"||precommand == "right")
-            //         {
-            //            robot2.setRotVel(0);
-            //            robot2.setVel(50);
-            //             ArUtil::sleep(5000);
-            //            robot2.setVel(0);
-            //         }else if(precommand == "backward")
-            //         {
-            //             robot2.setRotVel(0);
-            //             robot2.setVel(-50);
-            //             ArUtil::sleep(5000);
-            //             robot2.setVel(0);
-            //         }
-            //     }
-            //     else if(command=="stop")
-            //     {
-            //         robot2.setRotVel(0);
-            //         robot2.setVel(0);
-            //     }
-            //     precommand = myQue.front();
-            //     myQue.pop();
-            // }
-            // else if(name=="both")
-            // {
-            //     robot1.lock();
-            //     robot1.clearDirectMotion();
-            //     robot1.enableMotors();
-            //     robot1.unlock();
-            //
-            //     robot2.lock();
-            //     robot2.clearDirectMotion();
-            //     robot2.enableMotors();
-            //     robot2.unlock();
-            //     myQue.pop();
-            //     command = myQue.front();
-            //     //cout<<myQue.front()<<endl;
-            //     if(command=="forward")
-            //     {
-            //         robot1.setRotVel(0);
-            //         robot1.setVel(100);
-            //         robot2.setRotVel(0);
-            //         robot2.setVel(100);
-            //         ArUtil::sleep(5000);
-            //         robot1.setVel(0);
-            //         robot2.setVel(0);
-            //     }
-            //     else if(command=="backward")
-            //     {
-            //         robot1.setRotVel(0);
-            //         robot1.setVel(-100);
-            //         robot2.setRotVel(0);
-            //         robot2.setVel(-100);
-            //         ArUtil::sleep(5000);
-            //         robot1.setVel(0);
-            //         robot2.setVel(0);
-            //     }
-            //     else if(command=="left")
-            //     {
-            //         robot1.setRotVel(30);
-            //         robot1.setVel(0);
-            //         robot2.setRotVel(30);
-            //         robot2.setVel(0);
-            //         ArUtil::sleep(3000);
-            //         robot1.setRotVel(0);
-            //         robot1.setVel(100);
-            //         robot2.setRotVel(0);
-            //         robot2.setVel(100);
-            //         ArUtil::sleep(5000);
-            //         robot1.setVel(0);
-            //         robot2.setVel(0);
-            //     }
-            //     else if(command=="right")
-            //     {
-            //         robot1.setRotVel(-30);
-            //         robot1.setVel(0);
-            //         robot2.setRotVel(-30);
-            //         robot2.setVel(0);
-            //         ArUtil::sleep(3000);
-            //         robot1.setRotVel(0);
-            //         robot1.setVel(100);
-            //         robot2.setRotVel(0);
-            //         robot2.setVel(100);
-            //         ArUtil::sleep(5000);
-            //         robot1.setVel(0);
-            //         robot2.setVel(0);
-            //     }
-            //     else if(command== "faster")
-            //     {
-            //         if(precommand == "forward"||precommand == "left"||precommand == "right")
-            //         {
-            //             robot1.setRotVel(0);
-            //             robot1.setVel(200);
-            //             robot2.setRotVel(0);
-            //             robot2.setVel(200);
-            //             ArUtil::sleep(5000);
-            //             robot1.setVel(0);
-            //             robot2.setVel(0);
-            //         }else if(precommand == "backward")
-            //         {
-            //             robot1.setRotVel(0);
-            //             robot1.setVel(-200);
-            //             robot2.setRotVel(0);
-            //             robot2.setVel(-200);
-            //             ArUtil::sleep(5000);
-            //             robot1.setVel(0);
-            //             robot2.setVel(0);
-            //         }
-            //     }
-            //     else if(command == "slower")
-            //     {
-            //         if(precommand == "forward"||precommand == "left"||precommand == "right")
-            //         {
-            //             robot1.setRotVel(0);
-            //             robot1.setVel(50);
-            //             robot2.setRotVel(0);
-            //             robot2.setVel(50);
-            //             ArUtil::sleep(5000);
-            //             robot1.setVel(0);
-            //             robot2.setVel(0);
-            //         }else if(precommand == "backward")
-            //         {
-            //             robot1.setRotVel(0);
-            //             robot1.setVel(-50);
-            //             robot2.setRotVel(0);
-            //             robot2.setVel(-50);
-            //             ArUtil::sleep(5000);
-            //             robot1.setVel(0);
-            //             robot2.setVel(0);
-            //         }
-            //     }
-            //     else if(command=="stop")
-            //     {
-            //         robot1.setRotVel(0);
-            //         robot1.setVel(0);
-            //         robot2.setRotVel(0);
-            //         robot2.setVel(0);
-            //     }
-            //     precommand = myQue.front();
-            //     myQue.pop();
-            // }
             else
             {
                 myQue.pop();
@@ -480,46 +292,6 @@ int main(int argc, char *argv[])
 
     robot1.addRangeDevice(&sonar);
     robot1.runAsync(true);
-    //
-    // Aria::init();
-    // ArArgumentParser parser2(&argc, argv);
-    // parser2.addDefaultArgument("-rh 10.0.126.13");
-    //
-    // ArRobotConnector robotConnector2(&parser2, &robot2);
-    //
-    // if (!robotConnector2.connectRobot())
-    // {
-    //     if (!parser2.checkHelpAndWarnUnparsed())
-    //     {
-    //         ArLog::log(ArLog::Terse, "Could not connect to robot, will not have parameter file so options displayed later may not include everything");
-    //     }
-    //     else
-    //     {
-    //         ArLog::log(ArLog::Terse, "Error, could not connect to robot.");
-    //         Aria::logOptions();
-    //         Aria::exit(1);
-    //     }
-    // }
-    //
-    // if(!robot2.isConnected())
-    // {
-    //     ArLog::log(ArLog::Terse, "Internal error: robot connector succeeded but ArRobot::isConnected() is false!");
-    // }
-    //
-    // ArLaserConnector laserConnector2(&parser2, &robot2, &robotConnector2);
-    //
-    // ArCompassConnector compassConnector2(&parser2);
-    //
-    // if (!Aria::parseArgs() || !parser2.checkHelpAndWarnUnparsed())
-    // {
-    //     Aria::logOptions();
-    //     Aria::exit(1);
-    //     return 1;
-    // }
-    //
-    //robot2.addRangeDevice(&sonar);
-    //robot2.runAsync(true);
-
 
     pthread_t thread1, thread2;
 
