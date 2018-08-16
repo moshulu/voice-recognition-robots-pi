@@ -2,8 +2,8 @@
 
   CFLAGS=-fPIC -g -Wall
   
-  SPHINX_LINK=-L/usr/local/lib -lpocketsphinx -lsphinxbase -lsphinxad -llapack -lpthread -lm
-  ARIA_LINK=-L/usr/local/Aria/lib -lAria -lpthread -ldl -lrt
+  SPHINX_LINK=-L/usr/local/lib -lpocketsphinx -lsphinxbase -lsphinxad -lpthread -lm
+  ARIA_LINK=-L/usr/local/Aria/lib -lAria -lpthread -lrt -ldl
 
   ARIA_INCLUDE=-I/usr/local/Aria/include
   SPHINX_INCLUDE=-I/usr/local/include/sphinxbase

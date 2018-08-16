@@ -12,7 +12,7 @@ This requires ROS Melodic for support on Ubuntu 18.04. Do NOT use Kinetic, it wi
 
 Follow the flow of the webpage on your installed operating system.
 
-###Install ARIA
+### Install ARIA
 [Link.](http://wiki.ros.org/ROSARIA/Tutorials/How%20to%20use%20ROSARIA)
 
 ROSaria uses the ARIA libraries to connect to Adept MobileRobots. To install the latest version of ARIA, download it from [here.](http://robots.mobilerobots.com/wiki/Aria). If you are using Ubuntu 16.04 or later, install the package indicated for Ubuntu 16 or later. If you are using a previous version of Ubuntu (12.04 or later), install the package indicated for Ubuntu 12.
@@ -37,7 +37,7 @@ If an Ubuntu 16 package is available, however, use that instead.
 
 Note: rosaria's CMake build script detects the location of the ARIA library when catkin runs cmake. If you have already tried building rosaria prior to installing the ARIA library (either via rosdep or manually), you must force catkin to re-run cmake for rosaria with catkin_make --force-cmake. Do this if you get errors while building rosaria such as "could not find such file or directory : Aria/Aria.h" or similar.
 
-###Install CMUSphinx and PocketSphinx
+### Install CMUSphinx and PocketSphinx
 [Link.](http://jrmeyer.github.io/asr/2016/01/09/Installing-CMU-Sphinx-on-Ubuntu.html)
 
 This is a GREAT tutorial on how to install Sphinx, but you don't need to follow all of it. Do only the CMUSphinx portion (this is the base required to run the other libraries of Sphinx) and PocketSphinx (this is the mobile recognition library). It must be noted that you MUST follow all of his instructions exactly, especially adding the libraries to the recognized files (see the "nano /etc/ld.so.conf" command in the tutorial to add the libraries). I had a problem with adding both CMUSphinx and PocketSphinx to the list of recognized libraries, so make sure to put them in the correct directories. Structure of these within your project folder should be
@@ -48,8 +48,8 @@ This is a GREAT tutorial on how to install Sphinx, but you don't need to follow 
 			| - pocketsphinx
 			| - sphinxbase
 
-#Compiling a program
-###Understanding Makefile
+# Compiling a program
+### Understanding Makefile
 So you've made it this far, great! Now let's see if you can actually run something related to written code!
 
 If you haven't already, I suggest trying to run something from the ARIA/examples directory, to make sure you have the flow of things down. I also highly suggest you read the README.md in the highest level ARIA directory. ARIA is usually stored in the /usr/local/ARIA directory, if you haven't saved it somewhere else while you were installing.
@@ -87,7 +87,23 @@ So what does this all mean?
 - POCKET_INCLUDE defines where the PocketSphinx header files are
 - %: %.cpp compiles the command into a bash command. Optionally we have an output file (-o) that we can define at runtime, if we really wanted to.
 
-##Let's do this.
+## Modifying the voice recognition libraries
+In order for main.cpp not to parse through 60,000 words, we need to limit the amount of words that Pocketsphinx/Sphinxbase actually recognizes.
+1. Go to /usr/local/share/pocketsphinx/model/en-us/
+2. Open cmudict-en-us.dict in leafpad
+3. Delete all contents (it's okay, I promise)
+4. Type in:
+```
+left L EH F T
+right R AY T
+backward B AE K W ER D
+forward F AO R W ER D
+stop s t aa p
+mary M EH R IY
+```
+This limits the library to these words. You can add/delete words as you wish. Just take note: it takes longer to parse through longer lists. Duh.
+
+## Let's do this.
 Alright, you're all ready to go. Let's rock and roll. \m/
 1. Open a terminal (Ctrl+Alt+t)
 2. cd to the directory with your .cpp file and Makefile.
@@ -97,7 +113,7 @@ Alright, you're all ready to go. Let's rock and roll. \m/
 5. Type "./<your file name>" to execute the bash file. This should execute your .cpp file. If you want to make changes to the .cpp file, you must re "make" the file and then execute again.
 
 You're all done! Congrats! All of these steps, and that was just to run something...eep. Good luck!
-4. 
+
 
 
 

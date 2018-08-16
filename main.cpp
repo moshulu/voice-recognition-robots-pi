@@ -15,6 +15,7 @@
 #include <queue>
 #define MODELDIR "/usr/local/share/pocketsphinx/model"
 
+
 using namespace std;
 static ps_decoder_t *ps;
 static cmd_ln_t *config;
@@ -43,7 +44,7 @@ static void *recognize_from_microphone(void *dummy)
     char const *hyp;
     //string s;
 
-    if ((ad = ad_open_dev(cmd_ln_str_r(config, "-inmic yes"),
+    if ((ad = ad_open_dev(cmd_ln_str_r(config, ""),
                           (int) cmd_ln_float32_r(config,
                                   "-samprate"))) == NULL)
         E_FATAL("Failed to open audio device\n");
@@ -124,7 +125,7 @@ static void *Robot(void *dummy)
             cout<<"=========="<<"name"<<"=========="<<endl;
             cout<<myQue.front()<<endl;
             name = myQue.front();
-            if(name=="bob")
+            if(name=="mary")
             {
                 robot1.lock();
                 robot1.clearDirectMotion();
