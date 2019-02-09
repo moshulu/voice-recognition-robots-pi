@@ -2,6 +2,8 @@
 Comprehensive instructions on how to execute the files and make your own ROSaria robots listen to you.
 This project was adapted for Ubuntu 18.04, previously written for Ubuntu 16.04.
 
+This project was updated 9 February 2019 for adaption to Raspbian Stretch.
+
 # Required Setup'
 
 ## Robot Control
