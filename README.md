@@ -47,7 +47,35 @@ NOTE: Packages indicated for Ubuntu 12.04 can be used on any version of Ubuntu u
 If an Ubuntu 16 package is available, however, use that instead.
 
 #### For Raspbian
-*As of 9 February 2019, robots.mobilerobots.com has gone offline. Instead, download Aria manually from [here](https://github.com/reedhedges/AriaCoda). It is recommended to clone the repository in /usr/local/, and use the mv command to rename the cloned library to "Aria". That way, you can follow the tutorials provided without changing Aria to AriaCoda.
+*As of 9 February 2019, robots.mobilerobots.com has gone offline. Instead, download Aria manually from [here](https://github.com/moshulu/aria-legacy). It is recommended to clone the repository in /usr/local/, and use the mv command to rename the cloned library to "Aria". That way, you can follow the tutorials provided without changing Aria to aria-legacy.
+
+You **must** do:
+```
+sudo make
+```
+...in /usr/local/Aria to install the library properly. Then, edit the LD_LIBRARY_PATH to include /usr/local/Aria/lib (see below for more instructions about that).
+
+#### Editing the LD_LIBRARY_PATH
+
+For installations on Raspbian, you **must** link the libraries together. Otherwise, when you try to compile the .cpp program with the makefile, it won't recognize the libraries. Here are the steps:
+
+```
+echo $LD_LIBRARY_PATH
+```
+
+If there's no output, you must add Aria's library path to the machine's default path.
+
+```
+LD_LIBRARY_PATH=/usr/local/Aria/lib
+```
+
+If you echo the library path variable again, you should see "/usr/local/Aria/lib".
+
+Then, export (publish) the library path so the machine recognizes it.
+
+```
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/Aria/lib
+```
 
 #### Other Notes
 Rosaria's CMake build script detects the location of the ARIA library when catkin runs cmake. If you have already tried building rosaria prior to installing the ARIA library (either via rosdep or manually), you must force catkin to re-run cmake for rosaria with catkin_make --force-cmake. Do this if you get errors while building rosaria such as "could not find such file or directory : Aria/Aria.h" or similar.
@@ -103,29 +131,6 @@ So what does this all mean?
 - SPHINX_INCLUDE defines where the SphinxBase header files are
 - POCKET_INCLUDE defines where the PocketSphinx header files are
 - %: %.cpp compiles the command into a bash command. Optionally we have an output file (-o) that we can define at runtime, if we really wanted to.
-
-#### Important note for Raspbian installation
-
-For installations on Raspbian, you **must** link the libraries together. Otherwise, when you try to compile the .cpp program with the makefile, it won't recognize the libraries. Here are the steps:
-
-```
-echo $LD_LIBRARY_PATH
-```
-
-If there's no output, you must add Aria's library path to the machine's default path.
-
-```
-LD_LIBRARY_PATH=/usr/local/Aria/lib
-```
-
-If you echo the library path variable again, you should see "/usr/local/Aria/lib".
-
-Then, export (publish) the library path so the machine recognizes it.
-
-```
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/Aria/lib
-```
-
 
 ## Modifying the voice recognition libraries
 In order for main.cpp not to parse through 60,000 words, we need to limit the amount of words that Pocketsphinx/Sphinxbase actually recognizes.
